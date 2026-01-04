@@ -1,21 +1,30 @@
 import { useTheme } from '@/constants/theme';
 import { database } from '@/services/database';
+import { Ionicons } from '@expo/vector-icons';
 import { Stack, useFocusEffect } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const StatBar = ({ label, value, color, max = 5 }: { label: string, value: number, color: string, max?: number }) => {
-    const { colors, typography, borderRadius } = useTheme();
+const StatBar = ({ label, value, color, max = 5, icon }: { label: string, value: number, color: string, max?: number, icon: keyof typeof Ionicons.glyphMap }) => {
+    const { colors, typography } = useTheme();
     const percentage = (value / max) * 100;
 
     return (
-        <View style={{ marginBottom: 20 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text style={[typography.body, { color: colors.textSecondary }]}>{label}</Text>
-                <Text style={[typography.h3, { color: colors.text, fontSize: 16 }]}>{value.toFixed(1)} <Text style={{ fontSize: 12, color: colors.textSecondary }}>/ {max}</Text></Text>
+        <View style={{ marginBottom: 24 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                <View style={{
+                    width: 32, height: 32, borderRadius: 10,
+                    backgroundColor: color + '20', alignItems: 'center', justifyContent: 'center', marginRight: 12
+                }}>
+                    <Ionicons name={icon} size={18} color={color} />
+                </View>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={[typography.body, { color: colors.text, fontWeight: '500' }]}>{label}</Text>
+                    <Text style={[typography.h3, { color: colors.text, fontSize: 16 }]}>{value.toFixed(1)} <Text style={{ fontSize: 12, color: colors.textSecondary }}>/ {max}</Text></Text>
+                </View>
             </View>
-            <View style={{ height: 8, backgroundColor: colors.border, borderRadius: 4, overflow: 'hidden' }}>
-                <View style={{ height: '100%', width: `${percentage}%`, backgroundColor: color, borderRadius: 4 }} />
+            <View style={{ height: 10, backgroundColor: colors.border, borderRadius: 5, overflow: 'hidden' }}>
+                <View style={{ height: '100%', width: `${percentage}%`, backgroundColor: color, borderRadius: 5 }} />
             </View>
         </View>
     );
@@ -33,7 +42,6 @@ export default function StatsScreen() {
     );
 
     const loadStats = async () => {
-        // Only set loading on first load to avoid flicker
         if (!stats) setIsLoading(true);
         try {
             const data = await database.getStats();
@@ -64,6 +72,9 @@ export default function StatsScreen() {
                         headerShadowVisible: false,
                     }}
                 />
+                <View style={{ width: 80, height: 80, borderRadius: 40, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
+                    <Ionicons name="stats-chart" size={40} color={colors.textSecondary} />
+                </View>
                 <Text style={[typography.h2, { color: colors.text, textAlign: 'center' }]}>
                     Aucune statistique
                 </Text>
@@ -103,9 +114,11 @@ export default function StatsScreen() {
                         styles.card,
                         {
                             backgroundColor: colors.card,
-                            borderRadius: 16,
+                            borderRadius: 24,
                             padding: 24,
                             marginBottom: spacing.md,
+                            borderWidth: 1,
+                            borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'
                         },
                     ]}
                 >
@@ -113,34 +126,42 @@ export default function StatsScreen() {
                         Vue d'ensemble
                     </Text>
 
-                    <View style={[styles.statRow, { marginBottom: 24 }]}>
-                        <View>
-                            <Text style={[typography.body, { color: colors.textSecondary }]}>
-                                Total de moments
-                            </Text>
-                            <Text style={[typography.h1, { color: colors.primary, fontSize: 36, marginTop: 4 }]}>
-                                {stats.total}
-                            </Text>
+                    <View style={[styles.statRow, { marginBottom: 32 }]}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{
+                                width: 48, height: 48, borderRadius: 16,
+                                backgroundColor: colors.primary + '15', alignItems: 'center', justifyContent: 'center', marginRight: 16
+                            }}>
+                                <Ionicons name="images" size={24} color={colors.primary} />
+                            </View>
+                            <View>
+                                <Text style={[typography.body, { color: colors.textSecondary }]}>
+                                    Moments capturés
+                                </Text>
+                                <Text style={[typography.h1, { color: colors.text, fontSize: 32, marginTop: 2 }]}>
+                                    {stats.total}
+                                </Text>
+                            </View>
                         </View>
-                        {/* Maybe add a small chart icon or visual later if needed */}
                     </View>
-
-                    <View style={[styles.divider, { backgroundColor: isDark ? 'rgba(150,150,150,0.1)' : 'rgba(0,0,0,0.05)', marginBottom: 24 }]} />
 
                     <StatBar
                         label="Plaisir"
                         value={stats.avgPleasure}
                         color="#FFD700"
+                        icon="sparkles"
                     />
                     <StatBar
                         label="Confort"
                         value={stats.avgComfort}
                         color="#4CAF50"
+                        icon="bed"
                     />
                     <StatBar
                         label="Audace"
                         value={stats.avgAudacity}
                         color="#FF5722"
+                        icon="flame"
                     />
                 </View>
 
@@ -150,38 +171,43 @@ export default function StatsScreen() {
                             styles.card,
                             {
                                 backgroundColor: colors.card,
-                                borderRadius: 16,
+                                borderRadius: 24,
                                 padding: 24,
+                                borderWidth: 1,
+                                borderColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'
                             },
                         ]}
                     >
-                        <Text style={[typography.h2, { color: colors.text, marginBottom: spacing.lg }]}>
-                            Top 3 lieux
-                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24 }}>
+                            <Ionicons name="trophy" size={24} color="#FFD700" style={{ marginRight: 12 }} />
+                            <Text style={[typography.h2, { color: colors.text }]}>
+                                Lieux favoris
+                            </Text>
+                        </View>
 
                         {stats.topLocations.map((loc: any, index: number) => (
                             <View key={loc.location} style={styles.locationRow}>
                                 <View style={[styles.locationRank, {
                                     backgroundColor: index === 0 ? colors.primary : colors.background,
-                                    borderColor: isDark ? 'rgba(150,150,150,0.1)' : 'rgba(0,0,0,0.05)'
+                                    borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
                                 }]}>
-                                    <Text style={[typography.h3, { color: index === 0 ? '#FFFFFF' : colors.primary }]}>
-                                        {index + 1}
+                                    <Text style={[typography.h3, { color: index === 0 ? '#FFFFFF' : colors.primary, fontSize: 16 }]}>
+                                        #{index + 1}
                                     </Text>
                                 </View>
                                 <View style={{ flex: 1 }}>
-                                    <Text style={[typography.body, { color: colors.text, fontWeight: '600' }]}>
-                                        {loc.location}
-                                    </Text>
-                                    <View style={{ height: 4, backgroundColor: colors.border, borderRadius: 2, marginTop: 8, width: '100%' }}>
-                                        {/* Simple relative bar for location frequency - assuming max is total moments or largest location count */}
-                                        <View style={{ height: '100%', width: `${(loc.count / stats.total) * 100}%`, backgroundColor: colors.primary, borderRadius: 2 }} />
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
+                                        <Text style={[typography.body, { color: colors.text, fontWeight: '600' }]}>
+                                            {loc.location}
+                                        </Text>
+                                        <Text style={[typography.h3, { color: colors.textSecondary, fontSize: 14 }]}>
+                                            {loc.count}
+                                        </Text>
                                     </View>
-                                </View>
-                                <View style={{ marginLeft: 12, alignItems: 'flex-end' }}>
-                                    <Text style={[typography.h3, { color: colors.text }]}>
-                                        {loc.count}
-                                    </Text>
+
+                                    <View style={{ height: 6, backgroundColor: colors.border, borderRadius: 3, width: '100%' }}>
+                                        <View style={{ height: '100%', width: `${(loc.count / stats.total) * 100}%`, backgroundColor: colors.primary, borderRadius: 3 }} />
+                                    </View>
                                 </View>
                             </View>
                         ))}
@@ -203,19 +229,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
     },
     card: {
-        elevation: 2,
+        //elevation: 4,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
-        shadowRadius: 8,
+        shadowRadius: 12,
     },
     statRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    divider: {
-        height: 1,
     },
     locationRow: {
         flexDirection: 'row',
@@ -223,9 +246,9 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     locationRank: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
+        width: 40,
+        height: 40,
+        borderRadius: 14,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 16,

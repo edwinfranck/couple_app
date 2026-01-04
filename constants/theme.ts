@@ -12,12 +12,12 @@ const lightColors = {
 };
 
 const darkColors = {
-  primary: '#7C8FFF',
-  background: '#0F1419',
-  card: '#1A1F2E',
+  primary: '#8B9DFF', // Slightly lighter for contrast on black
+  background: '#000000', // True black
+  card: '#121212', // Deep gray surface
   text: '#FFFFFF',
-  textSecondary: '#A0AEC0',
-  border: '#2D3748',
+  textSecondary: '#9CA3AF', // Neutral Gray 400
+  border: '#27272A', // Neutral Gray 800
   error: '#EF4444',
 };
 
@@ -40,37 +40,37 @@ export const borderRadius = {
 export const typography = {
   h1: {
     fontSize: 32,
-    fontWeight: '700' as const,
+    fontFamily: 'Outfit_700Bold',
     lineHeight: 40,
   },
   h2: {
     fontSize: 24,
-    fontWeight: '600' as const,
+    fontFamily: 'Outfit_600SemiBold',
     lineHeight: 32,
   },
   h3: {
     fontSize: 18,
-    fontWeight: '600' as const,
+    fontFamily: 'Outfit_600SemiBold',
     lineHeight: 24,
   },
   body: {
     fontSize: 16,
-    fontWeight: '400' as const,
+    fontFamily: 'Outfit_400Regular',
     lineHeight: 24,
   },
   bodySmall: {
     fontSize: 14,
-    fontWeight: '400' as const,
+    fontFamily: 'Outfit_400Regular',
     lineHeight: 20,
   },
   caption: {
     fontSize: 12,
-    fontWeight: '400' as const,
+    fontFamily: 'Outfit_400Regular',
     lineHeight: 16,
   },
   button: {
     fontSize: 16,
-    fontWeight: '600' as const,
+    fontFamily: 'Outfit_600SemiBold',
     lineHeight: 24,
   },
 };

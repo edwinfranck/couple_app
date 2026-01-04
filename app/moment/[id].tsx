@@ -85,7 +85,7 @@ export default function MomentDetailScreen() {
                         styles.card,
                         {
                             backgroundColor: colors.card,
-                            borderRadius: 16,
+                            borderRadius: 20,
                             padding: 20,
                             marginBottom: spacing.md,
                         },
@@ -126,7 +126,7 @@ export default function MomentDetailScreen() {
                         styles.card,
                         {
                             backgroundColor: colors.card,
-                            borderRadius: 16,
+                            borderRadius: 20,
                             padding: 20,
                             marginBottom: spacing.md,
                         },
@@ -168,7 +168,7 @@ export default function MomentDetailScreen() {
                             styles.card,
                             {
                                 backgroundColor: colors.card,
-                                borderRadius: 16,
+                                borderRadius: 20,
                                 padding: 20,
                                 marginBottom: spacing.md,
                             },
@@ -193,7 +193,7 @@ export default function MomentDetailScreen() {
                             styles.card,
                             {
                                 backgroundColor: colors.card,
-                                borderRadius: 16,
+                                borderRadius: 20,
                                 padding: 20,
                                 marginBottom: spacing.md,
                             },
@@ -219,7 +219,7 @@ export default function MomentDetailScreen() {
                             styles.card,
                             {
                                 backgroundColor: colors.card,
-                                borderRadius: 16,
+                                borderRadius: 20,
                                 padding: 20,
                                 marginBottom: spacing.md,
                             },
@@ -242,7 +242,8 @@ export default function MomentDetailScreen() {
                     style={{
                         marginTop: spacing.md,
                         borderColor: colors.error,
-                        backgroundColor: colors.error
+                        backgroundColor: colors.error,
+                        borderRadius: 20
                     }}
                     textColor="#FFFFFF"
                 />
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     },
     card: {
         // Flat style generally looks better in dark mode, elevation in light
-        elevation: 2,
+        //elevation: 2,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,

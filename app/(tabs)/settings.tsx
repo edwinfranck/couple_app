@@ -75,24 +75,6 @@ export default function SettingsScreen() {
                         <Text style={{ fontWeight: '600', color: colors.text }}>Moments</Text> est une
                         application simple et privée pour documenter vos expériences marquantes.
                     </Text>
-
-                    <Text
-                        style={[
-                            typography.bodySmall,
-                            { color: colors.textSecondary, marginTop: spacing.md },
-                        ]}
-                    >
-                        Version 1.0.0
-                    </Text>
-
-                    <Text
-                        style={[
-                            typography.caption,
-                            { color: colors.textSecondary, marginTop: spacing.sm },
-                        ]}
-                    >
-                        100% gratuit • 100% offline • 100% privé
-                    </Text>
                 </View>
             </ScrollView>
         </View>

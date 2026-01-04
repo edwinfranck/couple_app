@@ -108,7 +108,7 @@ export default function AddMomentScreen() {
                 options={{
                     headerStyle: { backgroundColor: colors.background },
                     headerTintColor: colors.text,
-                    headerTitleStyle: { color: colors.text, fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto' },
+                    headerTitleStyle: { color: colors.text, fontFamily: 'Outfit_700Bold' },
                     title: 'Nouveau Moment',
                     headerShadowVisible: false,
                 }}
@@ -365,6 +365,7 @@ export default function AddMomentScreen() {
                         onPress={handleSave}
                         loading={isLoading}
                         disabled={!companion.trim()}
+                        style={{ borderRadius: 20 }}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>

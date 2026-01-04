@@ -20,6 +20,14 @@ export default function TabLayout() {
         },
         headerTintColor: colors.text,
         headerTitleAlign: 'left',
+        headerTitleStyle: {
+          fontFamily: 'Outfit_700Bold',
+          fontSize: 32, // Make it big like a main title
+        },
+        headerShadowVisible: false,
+        tabBarLabelStyle: {
+          fontFamily: 'Outfit_500Medium',
+        },
       }}
     >
       <Tabs.Screen
